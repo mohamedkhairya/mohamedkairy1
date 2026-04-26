@@ -1,15 +1,15 @@
 import React from 'react'
+import ProductSection from './../_comp-nav/section/ProductSection';
 
-const page = () => {
+const Shop = () => {
+  
   return (
     <>
     <div>
-        <h1 className="text-3xl font-bold bg-white ">
-            Hello world! aput
-        </h1>
+        <ProductSection/>
     </div>
     </>
   )
 }
 
-export default page
+export default Shop

@@ -1,34 +1,53 @@
-"use client"; // ضروري جداً لو بتستخدم Next.js App Router
-import React, { useState } from 'react';
-import { Search, ShoppingCart, Heart, User, Headphones, Menu, X, ChevronDown } from 'lucide-react';
+"use client"; 
+import React, { useState , useContext} from 'react';
+import { Search, ShoppingCart, Heart, User, Headphones, Menu, X, ChevronDown, LogOut } from 'lucide-react';
 import Link from 'next/link';
-
+import { signOut, useSession } from 'next-auth/react';
+import { contextcreat } from '@/context/Craetcontext';
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false); // حالة القائمة في الموبايل
+
+const { navNumber, setnavNumber } = useContext(contextcreat);
+
+const {data:mySession , status} = useSession()
+
+
+function mysignOut (){
+   signOut({redirect:true , callbackUrl:"/login"})
+}
+
+  const [isOpen, setIsOpen] = useState(false); 
     const linkclassname = "hover:text-green-600 text-lg font-bold"
     const linkclassCategories = "block px-4 py-2 hover:bg-green-50 hover:text-green-600"
 
   return (
-    <header className="w-full border-b border-gray-100 font-sans sticky top-0 bg-white z-[100]">
-      {/* 1. Top Bar - مخفي في الموبايل الصغير لتقليل الزحمة */}
+    <header className="w-full border-b border-gray-100 font-sans sticky top-0 bg-white z-[150]">
       <div className="hidden sm:flex bg-gray-50 py-2 px-4 md:px-10 justify-between items-center text-xs text-gray-500">
         <div className="flex gap-4">
           <span>Free Shipping on Orders 500 EGP</span>
         </div>
         <div className="flex gap-4 items-center">
           <span>+1 (800) 123-4567</span>
-          <div className="flex gap-2 ml-4">
-             <a href="#" className="hover:text-green-600">Sign In</a>
+
+          {status ==="unauthenticated"?(
+   <div className="flex gap-2 ml-4">
+             <Link href="/login" className="hover:text-green-600 font-bold">Sign In</Link>
              <span>|</span>
-             <a href="#" className="hover:text-green-600">Sign Up</a>
+             <Link href="/Register" className="hover:text-green-600 font-bold">Sign Up</Link>
           </div>
+          ):(
+            <div className="flex items-center ">
+    <span className="text-gray-600 font-medium">
+      Welcome,<span className='text-green-600 font-bold'>{mySession?.user?.name || "User"}!</span> 
+    </span>
+  </div>
+          )}
+       
         </div>
       </div>
 
       {/* 2. Main Navbar */}
       <div className="py-4 px-4 md:px-10 flex items-center justify-between gap-4">
         
-        {/* Mobile Menu Toggle - يظهر فقط في الموبايل */}
         <button 
           className="lg:hidden text-gray-700 cursor-pointer" 
           onClick={() => setIsOpen(!isOpen)}
@@ -37,12 +56,11 @@ const Navbar = () => {
         </button>
 
         <div className="flex items-center gap-2">
-          <Link href="/" className="text-green-600 font-bold text-2xl md:text-3xl flex items-center">
-            <ShoppingCart size={32} className="mr-2" /> FreshCart
+          <Link href="/" className="text-black font-bold text-2xl md:text-3xl flex items-center">
+            <ShoppingCart size={32} className="mr-2" /> Fresh<span className='text-green-600'>Cart</span>
           </Link>
         </div>
 
-        {/* Search Bar - بيختفي في الموبايل الصغير وممكن تظهره بطريقة تانية */}
         <div className="hidden md:flex flex-1 max-w-lg relative items-center mx-4">
           <input
             type="text"
@@ -79,31 +97,52 @@ const Navbar = () => {
 
                     <div className="flex items-center gap-4 ml-4">
             <div className="hidden xl:flex items-center gap-2 text-xs">
-              <Headphones size={30} className="text-green-600" />
+              <Headphones  size={30} className="text-green-600" />
               <div>
                 <p className="text-gray-400">Support</p>
                 <p className="font-bold">24/7 Help</p>
               </div>
             </div>
-            
-            <div className="flex items-center gap-5 relative">
+
+
+            <Link href="/wishlist">
               <button className="hover:text-green-600 cursor-pointer">
                 <Heart size={30} />
               </button>
-              <button className="hover:text-green-600 relative cursor-pointer">
-                <ShoppingCart size={30} />
-                <span className="absolute -top-2 -right-2 bg-green-600 text-white text-[10px] rounded-full w-4 h-4 flex items-center justify-center">0</span>
+            </Link>
+
+            <Link href="/cart">
+                <button className="hover:text-green-600 relative cursor-pointer">
+                <ShoppingCart  size={30} />
+
+                  {navNumber !==0 && <span className="absolute -top-2 -right-2 bg-green-600 text-white text-[10px] font-bold rounded-full min-w-[18px] h-[18px] flex items-center justify-center px-1 border-2 border-white shadow-sm">
+                  {navNumber || 0}
+                </span>  }
+                 
+                 </button>
+               </Link>
+
+               {status === "unauthenticated" ? (
+              <Link href="/login">
+                <button className="bg-green-600 text-white px-5 py-2 rounded-lg flex items-center gap-2 hover:bg-green-700 transition font-bold cursor-pointer">
+                  <User size={20} /> Sign In
+                </button>
+              </Link>
+            ) : (
+              <button
+                onClick={mysignOut}
+                className="bg-green-600 text-white px-5 py-2 rounded-lg flex items-center gap-2 hover:bg-red-600 transition font-bold cursor-pointer"
+              >
+                <LogOut size={20} /> Logout
               </button>
-              <button className="bg-green-600 cursor-pointer text-white px-5 py-2 rounded-lg flex items-center gap-2 hover:bg-green-700 transition">
-                <User size={20} /> Sign In
-              </button>
+            )}
+               
+
             </div>
             
           </div>
         </div>
-      </div>
 
-      {/* 3. Mobile Sidebar Menu - القائمة الجانبية */}
      <div className={`fixed inset-0 bg-black/20 bg-opacity-50 z-[150] transition-opacity duration-300 ${isOpen ? "opacity-100 visible" : "opacity-0 invisible"} lg:hidden`} onClick={() => setIsOpen(false)}>
   <div 
     className={`fixed left-0 top-0 h-full w-72 bg-white shadow-2xl transform transition-transform duration-300 ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
@@ -125,7 +164,7 @@ const Navbar = () => {
   {/* زرار القفل */}
   <button 
     onClick={() => setIsOpen(false)}
-    className="p-1 hover:bg-gray-100 rounded-full transition-colors"
+    className="p-1 hover:bg-gray-100 rounded-full transition-colors cursor-pointer"
     aria-label="Close Menu"
   >
     <X size={24} className="text-gray-400" />
@@ -134,7 +173,21 @@ const Navbar = () => {
     
     <div className="flex flex-col h-full overflow-y-auto pb-20">
       
-      {/* 2. Search Bar - تمت الإضافة هنا */}
+              {status ==="unauthenticated"?(
+   <div className="flex gap-2 p-3">
+             <Link href="/login" className="hover:text-green-600 font-bold">Sign In</Link>
+             <span>|</span>
+             <Link href="/Register" className="hover:text-green-600 font-bold">Sign Up</Link>
+          </div>
+          ):(
+            <div className="flex items-center p-3 ">
+    <span className="text-gray-600 font-medium">
+      Welcome,<span className='text-green-600 font-bold'>{mySession?.user?.name || "User"}!</span> 
+    </span>
+  </div>
+          )}
+       
+
 <div className="p-5">
   <div className="relative flex items-center">
     <input
@@ -171,18 +224,24 @@ const Navbar = () => {
         </div>
         
         {/* Auth Button */}
-<div className=" mt-6">  
-          <div className="mt-8">
-           <button className="w-full bg-green-600 text-white py-3 rounded-xl font-bold flex justify-center items-center gap-2 cursor-pointer hover:bg-green-700 transition-shadow shadow-md active:scale-[0.98]">
-             <User size={20} /> Sign In
-           </button>
-        </div>
-        <div className="mt-1 mb-4">
-           <button className="w-full border-3 border-green-600 text-green-600 py-3 rounded-xl font-bold flex justify-center items-center cursor-pointer gap-2 hover:bg-green-100 transition-shadow shadow-md active:scale-[0.98]">
-             <User size={20} /> Sign In
-           </button>
-        </div>
-</div>
+<div className=" mt-2">  
+             {status === "unauthenticated" ? (
+            <Link href="/login" className="w-full">
+              <button className="bg-green-600 w-full text-white px-5 py-2.5 my-4 rounded-lg flex items-center justify-center gap-2 hover:bg-green-700 transition-all font-bold cursor-pointer shadow-sm active:scale-95">
+                <User size={20} /> 
+                <span>Sign In</span>
+              </button>
+            </Link>
+          ) : (
+            <button
+              onClick={mysignOut}
+              className="bg-green-600 w-full text-white px-5 py-2.5 my-4 rounded-lg flex items-center justify-center gap-2 hover:bg-red-600 transition-all font-bold cursor-pointer shadow-sm active:scale-95"
+            >
+              <LogOut size={20} /> 
+              <span>Logout</span>
+            </button>
+          )}
+          </div>
       </nav>
     </div>
   </div>
