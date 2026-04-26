@@ -6,30 +6,27 @@ import { Flame, Sparkles, ArrowRight } from 'lucide-react';
 
 const Homecart = () => {
   
-  // إعداد الكارت الأول (يأتي من اليسار)
-// الكارت الأول (من اليسار)
   const leftCardVariants = {
     hidden: { opacity: 0, x: -100 },
     visible: { 
       opacity: 1, 
       x: 0,
       transition: { 
-        duration: 0.8, // مدة الحركة
-        delay: 0,      // يبدأ فوراً
-        ease: [0.22, 1, 0.36, 1] 
+        duration: 0.8, 
+        delay: 0,     
+        ease: [0.22, 1, 0.36, 1] as any
       }
     }
   };
 
-  // الكارت الثاني (من اليمين)
   const rightCardVariants = {
     hidden: { opacity: 0, x: 100 },
     visible: { 
       opacity: 1, 
       x: 0,
       transition: { 
-        duration: 0.8, // نفس المدة تماماً
-        delay: 0,      // تم إلغاء التأخير ليتحرك مع الأول في نفس اللحظة
+        duration: 0.8, 
+        delay: 0,      
         ease: [0.22, 1, 0.36, 1] 
       }
     }
