@@ -7,7 +7,7 @@ const Homecarts = async () => {
 
   return (
     <section className="px-5 my-10">
-      <Homecartmap cart={products} />
+      <Homecartmap cart={products || []} />
     </section>
   );
 };
