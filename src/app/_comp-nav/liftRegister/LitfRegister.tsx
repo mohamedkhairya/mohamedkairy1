@@ -1,7 +1,7 @@
 import React from 'react';
 import { Star, ShieldCheck, Truck, Award } from 'lucide-react';
 
-const FeatureItem = ({ icon, title, desc }) => (
+const FeatureItem = ({ icon, title, desc }: { icon: any, title: string, desc: string }) => (
   <div className="flex gap-4  ">
     <div className="w-12 h-12 bg-green-50 rounded-full flex items-center justify-center shrink-0">
       {icon}
