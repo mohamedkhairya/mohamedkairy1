@@ -8,15 +8,13 @@ import 'swiper/css';
 import 'swiper/css/thumbs';
 
 const ProductSlider = ({ images }: { images: string[] }) => {
-const [thumbsSwiper, setThumbsSwiper] = useState(null);
-
+const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
   return (
     <div className="flex flex-col gap-4 py-7">
       
    <Swiper
   spaceBetween={10}
-  thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }}
-  modules={[Thumbs]}
+thumbs={{ swiper: thumbsSwiper && !(thumbsSwiper as any).destroyed ? thumbsSwiper : null }}  modules={[Thumbs]}
   className="w-full rounded-2xl overflow-hidden" 
 >
   {images?.map((img, i) => (
