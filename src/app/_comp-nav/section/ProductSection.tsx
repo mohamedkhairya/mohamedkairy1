@@ -2,9 +2,11 @@ import React from 'react'
 import { getAllPosts } from '@/servicesApi/Api';
 import ProductCart from './../productcart/productcart'; 
 
+
+
 const ProductSection = async () => {
 
-  const pordacts = await getAllPosts() as any[];
+  const pordacts = await getAllPosts() as any[]; 
 
   return (
     <>
@@ -18,7 +20,6 @@ const ProductSection = async () => {
 }
 
 export default ProductSection;
-
 
 
 
