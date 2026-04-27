@@ -41,7 +41,7 @@ const { id } = await props.params;
         </h2>
 
         <div className='mt-3'>
-          <Retingpro value={productdetiles?.ratingsAverage} />
+          <Retingpro value={productdetiles?.ratingsAverage || 0} />
         </div>
 
         <h1 className='text-2xl lg:text-3xl font-bold text-gray-800 mt-4'>
@@ -62,7 +62,7 @@ const { id } = await props.params;
         {/* Quantity */}
         <div className='mt-8 p-4 lg:p-0 bg-gray-50 lg:bg-transparent rounded-xl'>
           <h3 className='text-lg font-bold mb-3'>Quantity</h3>
-          <Qunantity product={productdetiles} />
+          {productdetiles && <Qunantity product={productdetiles} />}
         </div>
 
  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-3 px-4">
