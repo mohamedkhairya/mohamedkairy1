@@ -11,9 +11,9 @@ export async function addCart (productId : string){
 
 const token = await myAddcartToken();
 
-if(!token){
-    throw new Error("please login first .....")
-}
+if (!token) {
+        return null; 
+    }
 
 const res = await fetch('https://ecommerce.routemisr.com/api/v2/cart', {
     method : "post" ,
@@ -37,9 +37,9 @@ export async function getCartAction (){
 
 const token = await myAddcartToken();
 
-if(!token){
-    throw new Error("please login first .....")
-}
+if (!token) {
+        return null; 
+    }
 
 const res = await fetch('https://ecommerce.routemisr.com/api/v2/cart', {
     method : "GET" ,
@@ -60,9 +60,9 @@ export async function getUpdateAction (productId : string , count:number){
 
 const token = await myAddcartToken();
 
-if(!token){
-    throw new Error("please login first .....")
-}
+if (!token) {
+        return null; 
+    }
 
 const res = await fetch(`https://ecommerce.routemisr.com/api/v2/cart/${productId}`, {
     method : "PUT" ,
@@ -86,9 +86,9 @@ export async function getDELETEAction (productId : string){
 
 const token = await myAddcartToken();
 
-if(!token){
-    throw new Error("please login first .....")
-}
+if (!token) {
+        return null; 
+    }
 
 const res = await fetch(`https://ecommerce.routemisr.com/api/v2/cart/${productId}`, {
     method : "DELETE" ,
@@ -110,9 +110,9 @@ export async function getClearAction (){
 
 const token = await myAddcartToken();
 
-if(!token){
-    throw new Error("please login first .....")
-}
+if (!token) {
+        return null; 
+    }
 
 const res = await fetch("https://ecommerce.routemisr.com/api/v2/cart", {
     method : "DELETE" ,
