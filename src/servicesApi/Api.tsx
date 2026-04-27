@@ -7,25 +7,23 @@ import { jwtDecode } from "jwt-decode"
  
  
  
- export async function getAllPosts(): Promise<Iprodcet | undefined> {
-      try{
-        let response = await axios.get('https://ecommerce.routemisr.com/api/v1/products')
-        
-        response = await response.data 
-        return response.data
+ export async function getAllPosts(): Promise<any | undefined> {
+  try {
+    const { data } = await axios.get('https://ecommerce.routemisr.com/api/v1/products');
+    return data.data; 
+  } catch (error) {
+    return undefined;
+  }
+}
 
-      }catch(erorr){}
-
-      }
- export async function getSinglePost(id: string): Promise<Daum | undefined> {
-      try{
-        let response = await axios.get("https://ecommerce.routemisr.com/api/v1/products/"+id)
-        response = await response.data 
-        return response.data
-
-      }catch(erorr){}
-
-      }
+export async function getSinglePost(id: string): Promise<any | undefined> {
+  try {
+    const { data } = await axios.get(`https://ecommerce.routemisr.com/api/v1/products/${id}`);
+    return data.data;
+  } catch (error) {
+    return undefined;
+  }
+}
 
 export async function getCategories(): Promise<Category[] | undefined> {
   try {
