@@ -112,15 +112,16 @@ function mysignOut (){
             </Link>
 
             <Link href="/cart">
-                <button className="hover:text-green-600 relative cursor-pointer">
-                <ShoppingCart  size={30} />
-
-                  {navNumber !==0 && <span className="absolute -top-2 -right-2 bg-green-600 text-white text-[10px] font-bold rounded-full min-w-[18px] h-[18px] flex items-center justify-center px-1 border-2 border-white shadow-sm">
-                  {navNumber || 0}
-                </span>  }
-                 
-                 </button>
-               </Link>
+            <button className="hover:text-green-600 relative cursor-pointer">
+              <ShoppingCart size={30} />
+              
+              {navNumber && navNumber > 0 ? (
+                <span className="absolute -top-2 -right-2 bg-green-600 text-white text-[10px] font-bold rounded-full min-w-[18px] h-[18px] flex items-center justify-center px-1 border-2 border-white shadow-sm">
+                  {navNumber}
+                </span>
+              ) : null}
+            </button>
+          </Link>
 
                {status === "unauthenticated" ? (
               <Link href="/login">
