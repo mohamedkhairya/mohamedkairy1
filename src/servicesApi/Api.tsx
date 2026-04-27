@@ -94,7 +94,7 @@ export async function getWomensProducts(): Promise<Daum[]> {
     
     return data.data || [];
   } catch (error) {
-   
+   return [];
   }
 }
 
@@ -117,7 +117,7 @@ export async function getMensProducts(): Promise<Daum[]> {
     
     return data.data || [];
   } catch (error) {
-  
+  return [];
   }
 }
 
@@ -125,7 +125,9 @@ export async function getMensProducts(): Promise<Daum[]> {
 
 
 export async function getUserOrders() {
+  
     const token = await myAddcartToken();
+
     if (!token) return { status: "fail", message: "Token not found" };
 
     try {
@@ -137,7 +139,9 @@ export async function getUserOrders() {
         });
 
         const data = await req.json();
-        return data; 
+        
+        return data || { status: "fail", message: "No data found" }; 
+        
     } catch (error) {
         return { status: "error", message: "Failed to fetch orders" };
     }
