@@ -19,10 +19,13 @@ const Cart = () => {
 
   async function UserCart() {
     try {
+
+      
       const res = await getCartAction()
       if (res.status === "success") {
         setproductData(res.data)
         setcartid(res.cartId)
+
       }
     } catch (error) {
       console.error("Error fetching cart:", error)
@@ -310,15 +313,18 @@ if (loading) {
                 <div className="p-6">
                   {/* Price Details */}
                   <div className="space-y-4 border-b border-gray-100 pb-6">
+
                     <div className="flex justify-between text-gray-900 font-medium">
                       <span>
-                        Subtotal ({productData?.products.length} items)
+                        Subtotal ({productData?.products.length||0} items)
                       </span>
 
-                      <span className="text-gray-500">
-                        {productData?.totalCartPrice} EGP
-                      </span>
+              <span className="text-gray-500">
+                   {productData?.totalCartPrice || productData?.totaleCreatPrice}  EGP
+                </span>
                     </div>
+
+
                     <div className="flex justify-between text-gray-900 font-medium">
                       <span>Shipping</span>
                       <span className="text-green-600 text-sm font-bold">
@@ -326,6 +332,7 @@ if (loading) {
                       </span>
                     </div>
                   </div>
+                  
 
                   {/* Total & Action */}
                   <div className="py-6 space-y-6">
@@ -334,7 +341,7 @@ if (loading) {
                         Estimated Total
                       </span>
                       <span className="text-2xl font-black text-green-600">
-                        {productData?.totalCartPrice}{" "}
+                         {productData?.totalCartPrice || productData?.totaleCreatPrice} {" "}
                         <small className="text-xs">EGP</small>
                       </span>
                     </div>

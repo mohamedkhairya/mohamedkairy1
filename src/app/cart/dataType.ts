@@ -6,7 +6,8 @@ export interface Alltypes {
     carteOwner: string,
     createdAt: string,
     products:product[],
-    totaleCreatPrice:number,
+    totalCartPrice: number, // الاسم الصح اللي جاي من الـ API
+    totaleCreatPrice?: number,
     updateAd:string,
     __v: number,
     _id:string,
