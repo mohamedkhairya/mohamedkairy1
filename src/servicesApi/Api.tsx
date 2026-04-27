@@ -125,13 +125,13 @@ export async function getMensProducts(): Promise<Daum[]> {
 
 
 export async function getUserOrders() {
-  
+
     const token = await myAddcartToken();
 
     if (!token) return { status: "fail", message: "Token not found" };
 
     try {
-        const decoded: any = jwtDecode(token);
+       const decoded: any = jwtDecode(token as string);
         const userId = decoded.id;
 
         const req = await fetch(`https://ecommerce.routemisr.com/api/v1/orders/user/${userId}`, {
