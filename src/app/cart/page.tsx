@@ -17,20 +17,20 @@ const Cart = () => {
   const { navNumber, setnavNumber } = useContext(contextcreat);
   const [cartId , setcartid] = useState("")
 
-  async function UserCart() {
+ async function UserCart() {
     try {
+      const res = await getCartAction();
 
-      
-      const res = await getCartAction()
-      if (res.status === "success") {
-        setproductData(res.data)
-        setcartid(res.cartId)
-
+      if (res?.status === "success") {
+        setproductData(res.data);
+        setcartid(res.cartId);
+      } else {
+        setproductData(null);
       }
     } catch (error) {
-      console.error("Error fetching cart:", error)
+      console.error("Error fetching cart:", error);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   }
 
