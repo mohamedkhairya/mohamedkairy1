@@ -6,7 +6,7 @@ import ProductCart from './../productcart/productcart';
 
 const ProductSection = async () => {
 
-  const pordacts = await getAllPosts() as any[]; 
+  const pordacts = (await getAllPosts()) as unknown as any[]; 
 
   return (
     <>
