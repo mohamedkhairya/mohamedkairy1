@@ -6,9 +6,14 @@ import Retingpro from '@/app/_comp-nav/retingpro/Retingpro';
 import ProductReview from './ProductReview';
 import { RotateCcw, ShieldCheck, Van } from 'lucide-react';
 
-const ProductDetiles = async (props) => {
+interface PageProps {
+  params: Promise<{ id: string }>;
+}
 
-  let {id} = await props.params;
+const ProductDetiles = async (props: PageProps) => {
+
+const { id } = await props.params;
+
   const productdetiles = await getSinglePost(id);
 
   return (
